@@ -20,7 +20,7 @@ public class Attendance {
 
     private LocalDateTime dateAttendance;
 
-    @ManyToOne
+    @ManyToOne()
     private Patient patient;
 
     @Lob

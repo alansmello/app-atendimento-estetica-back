@@ -20,7 +20,7 @@ public class Image {
     @Lob
 	private byte[] photo;
 
-    @ManyToOne
+    @ManyToOne()
 	private Attendance attendance;
 
 

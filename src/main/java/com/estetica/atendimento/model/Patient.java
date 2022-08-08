@@ -21,7 +21,7 @@ public class Patient {
 
 	private String email;
 
-	@OneToMany
+	@OneToMany(mappedBy="patient")
 	private List<Attendance> attendances; 
 
 

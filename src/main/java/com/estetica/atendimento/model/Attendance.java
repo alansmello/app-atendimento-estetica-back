@@ -1,6 +1,6 @@
 package com.estetica.atendimento.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,6 +11,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Attendance {
 
@@ -18,16 +20,19 @@ public class Attendance {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-    private LocalDateTime dateAttendance;
+    private LocalDate dateAttendance;
 
     @ManyToOne()
     private Patient patient;
 
     @Lob
     private String description;
+    
+    private String url;
 
-    @OneToMany(mappedBy="attendance")
-	private List<Image> photos;
+//    @JsonIgnore
+//    @OneToMany(mappedBy="attendance")
+//	private List<Image> photos;
 
 
     public Integer getId() {
@@ -35,11 +40,11 @@ public class Attendance {
     }
 
 
-    public LocalDateTime getDateAttendance() {
+    public LocalDate getDateAttendance() {
         return this.dateAttendance;
     }
 
-    public void setDateAttendance(LocalDateTime dateAttendance) {
+    public void setDateAttendance(LocalDate dateAttendance) {
         this.dateAttendance = dateAttendance;
     }
 
@@ -59,13 +64,25 @@ public class Attendance {
         this.description = description;
     }
 
-    public List<Image> getPhotos() {
-        return this.photos;
-    }
 
-    public void setPhotos(List<Image> photos) {
-        this.photos = photos;
-    }
+	public String getUrl() {
+		return url;
+	}
+
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+    
+
+ //   public List<Image> getPhotos() {
+//        return this.photos;
+//    }
+//
+//    public void setPhotos(List<Image> photos) {
+//        this.photos = photos;
+//    }
 
 
 

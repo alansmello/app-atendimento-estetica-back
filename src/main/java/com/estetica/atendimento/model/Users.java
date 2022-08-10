@@ -20,6 +20,8 @@ public class Users {
 
     private String email;
 
+    private String username;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
@@ -27,8 +29,12 @@ public class Users {
     public Integer getId() {
         return this.id;
     }
+   
+    public String getUsername() {
+        return this.username;
+    }
 
-
+   
     public String getName() {
         return this.name;
     }
@@ -44,6 +50,11 @@ public class Users {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 
     public String getPassword() {
         return this.password;

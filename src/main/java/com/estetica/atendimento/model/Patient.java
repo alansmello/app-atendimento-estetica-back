@@ -19,13 +19,13 @@ public class Patient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotBlank
+	@NotBlank(message = "Campo nao informado")
 	private String name;
 
-	@NotBlank
+	@NotBlank(message = "Campo nao informado")
 	private String whatsapp;
 
-	@Email
+	@Email(message = "O email deve ser valido")
 	private String email;
 
 	@JsonIgnore

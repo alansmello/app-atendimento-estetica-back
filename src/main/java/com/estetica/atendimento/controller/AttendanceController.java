@@ -2,11 +2,13 @@ package com.estetica.atendimento.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.estetica.atendimento.exception.ErrorGeneral;
 import com.estetica.atendimento.model.Attendance;
 import com.estetica.atendimento.model.Image;
+import com.estetica.atendimento.model.Patient;
 import com.estetica.atendimento.service.AttendanceService;
 import com.estetica.atendimento.service.ImageService;
 
@@ -34,6 +37,16 @@ public class AttendanceController {
 	@Autowired
 	ImageService imageService;
 	
+	@GetMapping("/getAllImagem")
+	public ResponseEntity<List<Image>> listarTodasFotos() throws ErrorGeneral {
+		return ResponseEntity.ok(imageService.listarTodos());
+	}
+	
+	@GetMapping("/getImagemPorIdAttendance/{id}")
+	public ResponseEntity<List<Image>> listarFotosPorIdAttendance(@PathVariable Integer id) throws ErrorGeneral {
+		return ResponseEntity.ok(imageService.listarPorIdAttendance(id));
+	}
+	
 	@GetMapping("/getAllAttendance")
 	public ResponseEntity<List<Attendance>> listarTodos() throws ErrorGeneral {
 		return ResponseEntity.ok(attendanceService.listarTodos());
@@ -47,16 +60,6 @@ public class AttendanceController {
 		headers.add("content-lenght", String.valueOf(image.getDados().length));
 		return new ResponseEntity<>(image.getDados(), headers, HttpStatus.OK);
 	}
-	
-//	@GetMapping("/{id}/imagem")
-//	public ResponseEntity<byte[]> getImagem(@PathVariable Long id) throws IdNotFoundException {
-//		Anexo anexo = anexoService.buscar(id);
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("content-type", anexo.getTipo());
-//		headers.add("content-lenght", String.valueOf(anexo.getDados().length));
-//		return new ResponseEntity<>(anexo.getDados(), headers, HttpStatus.OK);
-//	}
-	
 
 	@PostMapping("/addAttendance")
 	public ResponseEntity<String> adicionar(@RequestPart Attendance attendance) throws ErrorGeneral, IOException {
@@ -66,6 +69,11 @@ public class AttendanceController {
 	@PostMapping("/addFoto")
 	public ResponseEntity<Image> adicionar(@RequestPart Image image, @RequestParam MultipartFile file) throws ErrorGeneral, IOException {
 		return ResponseEntity.ok(imageService.inserir(image, file));
+	}
+	
+	@DeleteMapping("/deleteImagem/{id}")
+	public ResponseEntity<String> deletar(@PathVariable Integer id) throws ErrorGeneral {
+		return ResponseEntity.ok(imageService.deletar(id));
 	}
 
 }

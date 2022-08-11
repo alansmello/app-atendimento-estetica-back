@@ -27,7 +27,7 @@ public class Image {
 	
     private String url;
 
-    @OneToOne()
+    @ManyToOne()
 	private Attendance attendance;
 
 

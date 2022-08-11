@@ -39,8 +39,9 @@ public class ServiceModelService {
 			throw new ErrorGeneral("O nome do servico tem que ser informado!");
 		}
 		
-		
-		repository.save(service);
+        service.setName(service.getName().toUpperCase());
+        
+        repository.save(service);
 
 		return "Servico criado com sucesso";
 	}

@@ -34,6 +34,8 @@ public class PatientService {
 			throw new ErrorGeneral("O Email do paciente tem que ser informado");
 		}
 		
+		
+		patient.setName(patient.getName().toUpperCase());
 		patientRepo.save(patient);
 
 		return "Paciente criado com sucesso";

@@ -40,7 +40,7 @@ public class AttendanceService {
 	}
 	
 	@Transactional
-	public Attendance adicionar(Attendance attendance, MultipartFile file) throws ErrorGeneral, IOException {
+	public String adicionar(Attendance attendance) throws ErrorGeneral, IOException {
 
 		Optional<Patient> optionalPatient = patientRepo.findById(attendance.getPatient().getId());
 		if (optionalPatient.isEmpty()) {
@@ -49,15 +49,8 @@ public class AttendanceService {
 		
 		attendance.setDateAttendance(LocalDate.now());;
 		attendance.setPatient(optionalPatient.get());;
-		
-		imageService.inserir(attendanceRepo.save(attendance),file);
-		return adicionarImagemUri(attendance);
+		attendanceRepo.save(attendance);
+		return "Atendimento criado com sucesso";
 	}
 	
-	private Attendance adicionarImagemUri(Attendance attendance) {
-		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/attendance/{id}/imagem")
-				.buildAndExpand(attendance.getId()).toUri();
-		attendance.setUrl(uri.toString());
-		return attendance;
-	}
 }

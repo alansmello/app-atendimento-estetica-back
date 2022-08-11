@@ -27,10 +27,8 @@ public class Attendance {
 
     @Lob
     private String description;
-    
-    private String url;
 
-    @ManyToOne
+    @ManyToOne()
     private ServiceModel service;
     
     @OneToMany(mappedBy="attendance")
@@ -64,6 +62,18 @@ public class Attendance {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+	public ServiceModel getService() {
+		return service;
+	}
+
+
+	public void setService(ServiceModel service) {
+		this.service = service;
+	}
+    
+    
 
     
 }

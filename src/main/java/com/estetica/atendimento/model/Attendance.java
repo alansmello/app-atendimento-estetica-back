@@ -32,10 +32,9 @@ public class Attendance {
 
     @ManyToOne
     private ServiceModel service;
-
-    @JsonIgnore
+    
     @OneToMany(mappedBy="attendance")
-	  private List<Image> photos;
+	 private List<Image> photos;
 
     public Integer getId() {
         return this.id;

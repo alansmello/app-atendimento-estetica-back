@@ -5,6 +5,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +20,7 @@ import com.estetica.atendimento.repository.AttendanceRepository;
 import com.estetica.atendimento.repository.ImageRepository;
 
 
+
 @Service
 public class ImageService {
 	
@@ -26,21 +29,25 @@ public class ImageService {
 	
 	@Autowired
 	AttendanceRepository attendanceRepo;
-//	
-//	@Autowired
-//	AttendanceService attendanceService;
+
+	public List<Image> listarTodos() {
+		List<Image> lista = imageRepo.findAll();
+		for (Image prod: lista ){
+		adicionarImagemUri(prod);
+		}
+		return lista;
+	}
 	
-//	@Transactional
-//	public Image create(Attendance attendance, MultipartFile file) throws IOException {
-//		Image image = new Image();
-//		image.setName("imagem");
-//		image.setTipo(file.getContentType());
-//		image.setDados(file.getBytes());
-//		image.setAttendance(attendance);
-//		return imageRepo.save(image);
-//	}
+	@Transactional
+	public List<Image> listarPorIdAttendance(Integer id) {
+		List<Image> lista = imageRepo.findByAttendanceId(id);
+		for (Image prod: lista ){
+		adicionarImagemUri(prod);
+		}
+		return lista;
+	}
 	
-//	@Transactional
+	
 	public Image inserir(Image image, MultipartFile file) throws IOException, ErrorGeneral {
 		
 		Optional<Attendance> optional = attendanceRepo.findById(image.getAttendance().getId());
@@ -51,8 +58,9 @@ public class ImageService {
 		image.setTipo(file.getContentType());
 		image.setDados(file.getBytes());
 		image.setAttendance(optional.get());
+		imageRepo.save(image);
 		adicionarImagemUri(image);
-		return imageRepo.save(image);
+		return image;
 	}
 	
 	private Image adicionarImagemUri(Image image) {
@@ -62,14 +70,6 @@ public class ImageService {
 		return image;
 	}
 
-//	public String createUrl(Integer id) {
-//		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/attendance/{id}/imagem").buildAndExpand(id)
-//				.toUri();
-//		return uri.toString(); 
-//
-//	}
-	
-//	@Transactional
 	public Image buscar(Integer id) {
 		Optional<Image> image = imageRepo.findById(id);
 		if (!image.isPresent()) {
@@ -78,8 +78,16 @@ public class ImageService {
 		return image.get();
 	}
 	
-//	public List<Image> listarPorAttendanceId(Integer id) {
-//		return imageRepo.findByAttendanceId(id);
-//	}
+	public String deletar(Integer id) throws ErrorGeneral {
+
+        Optional<Image> optional = imageRepo.findById(id);
+        if (optional.isEmpty()) {
+            throw new ErrorGeneral("Essa imagem não existe!");
+        }
+        imageRepo.deleteById(id);
+        return "Imagem deletada com sucesso";
+    }
+	
+
                                               
 }

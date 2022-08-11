@@ -33,10 +33,9 @@ public class Attendance {
     @ManyToOne
     private ServiceModel service;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy="attendance")
-//	private List<Image> photos;
-
+    @JsonIgnore
+    @OneToMany(mappedBy="attendance")
+	  private List<Image> photos;
 
     public Integer getId() {
         return this.id;
@@ -66,28 +65,6 @@ public class Attendance {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
-	public String getUrl() {
-		return url;
-	}
-
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-    
-
- //   public List<Image> getPhotos() {
-//        return this.photos;
-//    }
-//
-//    public void setPhotos(List<Image> photos) {
-//        this.photos = photos;
-//    }
-
-
 
     
 }

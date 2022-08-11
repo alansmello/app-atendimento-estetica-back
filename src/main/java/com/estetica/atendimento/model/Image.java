@@ -24,6 +24,8 @@ public class Image {
 	private String tipo;
 	
 	private String name;
+	
+    private String url;
 
     @OneToOne()
 	private Attendance attendance;
@@ -66,6 +68,16 @@ public class Image {
     public void setAttendance(Attendance attendance) {
         this.attendance = attendance;
     }
+    
+    
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	public Image() {
 		super();

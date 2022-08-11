@@ -28,10 +28,14 @@ public class Attendance {
     @Lob
     private String description;
     
+    private String url;
+
+    @ManyToOne
+    private ServiceModel service;
+
     @JsonIgnore
     @OneToMany(mappedBy="attendance")
-	private List<Image> photos;
-
+	  private List<Image> photos;
 
     public Integer getId() {
         return this.id;

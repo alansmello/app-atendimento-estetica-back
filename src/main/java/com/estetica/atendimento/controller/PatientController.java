@@ -2,6 +2,8 @@ package com.estetica.atendimento.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,12 +33,12 @@ public class PatientController {
 	}
 	
 	@PostMapping("/addPatient")
-	public ResponseEntity<String> adicionar(@RequestBody Patient patient) throws ErrorGeneral {
+	public ResponseEntity<String> adicionar(@RequestBody @Valid Patient patient) throws ErrorGeneral {
 		return ResponseEntity.ok(patientService.adicionar(patient));
 	}
 	
 	@PutMapping("/editPatient/{id}")
-	public ResponseEntity<String> editar(@RequestBody Patient patient, @PathVariable Integer id) throws ErrorGeneral {
+	public ResponseEntity<String> editar(@RequestBody @Valid Patient patient, @PathVariable Integer id) throws ErrorGeneral {
 		return ResponseEntity.ok(patientService.editar(patient, id));
 	}
 	

@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,10 +19,13 @@ public class Patient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@NotBlank(message = "Campo nao informado")
 	private String name;
 
+	@NotBlank(message = "Campo nao informado")
 	private String whatsapp;
 
+	@Email(message = "O email deve ser valido")
 	private String email;
 
 	@JsonIgnore

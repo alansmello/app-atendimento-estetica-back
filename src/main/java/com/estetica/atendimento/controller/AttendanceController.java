@@ -41,7 +41,7 @@ public class AttendanceController {
 	
 	@GetMapping("/{id}/imagem")
 	public ResponseEntity<byte[]> getImagem(@PathVariable Integer id) {
-		Image image = imageService.buscar(id);
+		Image image = (Image) imageService.buscar(id);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("content-type", image.getTipo());
 		headers.add("content-lenght", String.valueOf(image.getDados().length));
@@ -59,8 +59,13 @@ public class AttendanceController {
 	
 
 	@PostMapping("/addAttendance")
-	public ResponseEntity<Attendance> adicionar(@RequestPart Attendance attendance, @RequestParam MultipartFile file) throws ErrorGeneral, IOException {
-		return ResponseEntity.ok(attendanceService.adicionar(attendance, file));
+	public ResponseEntity<String> adicionar(@RequestPart Attendance attendance) throws ErrorGeneral, IOException {
+		return ResponseEntity.ok(attendanceService.adicionar(attendance));
+	}
+	
+	@PostMapping("/addFoto")
+	public ResponseEntity<Image> adicionar(@RequestPart Image image, @RequestParam MultipartFile file) throws ErrorGeneral, IOException {
+		return ResponseEntity.ok(imageService.inserir(image, file));
 	}
 
 }

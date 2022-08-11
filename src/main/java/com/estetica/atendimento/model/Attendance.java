@@ -30,6 +30,9 @@ public class Attendance {
     
     private String url;
 
+    @ManyToOne
+    private ServiceModel service;
+
 //    @JsonIgnore
 //    @OneToMany(mappedBy="attendance")
 //	private List<Image> photos;

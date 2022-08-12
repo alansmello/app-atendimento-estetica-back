@@ -64,6 +64,10 @@ public class PatientService {
 		if (patient.getEmail() != null && !patient.getEmail().equals("")) {
 			oldPatient.setEmail(patient.getEmail());
 		}
+		
+		if (patient.getBirthday() != null && !patient.getBirthday().equals("")) {
+			oldPatient.setBirthday(patient.getBirthday());
+		}
 
 		patientRepo.save(oldPatient);
 		return "Paciente alterado com sucesso";

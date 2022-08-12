@@ -11,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -33,6 +35,8 @@ public class Patient {
 	@Email(message = "O email deve ser valido")
 	private String email;
 
+	@Past
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate birthday;
 
 

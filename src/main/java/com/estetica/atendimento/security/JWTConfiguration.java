@@ -1,5 +1,7 @@
 package com.estetica.atendimento.security;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,7 +39,7 @@ public class JWTConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
+        http.cors().and().csrf().disable().authorizeRequests()
         .antMatchers(HttpMethod.POST,"/login").permitAll()
         .anyRequest().authenticated()
         .and().addFilter(new JWTAuthenticationFilter(authenticationManager()))
@@ -47,10 +49,20 @@ public class JWTConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        /*final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-        source.registerCorsConfiguration("/**",corsConfiguration);
+        CorsConfiguration corsConfiguration = new CorsConfiguration().
+        
+        
+         applyPermitDefaultValues();
+        source.registerCorsConfiguration("/**",corsConfiguration); */
+
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000/","http://169.57.150.59:3020/","http://10.150.122.13:3020/"));
+		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsConfiguration.applyPermitDefaultValues());
+		source.registerCorsConfiguration("/**", corsConfiguration);
 
         return source;
     }

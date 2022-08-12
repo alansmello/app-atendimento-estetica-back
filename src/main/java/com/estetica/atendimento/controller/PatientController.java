@@ -38,7 +38,7 @@ public class PatientController {
 	}
 	
 	@PutMapping("/editPatient/{id}")
-	public ResponseEntity<String> editar(@RequestBody @Valid Patient patient, @PathVariable Integer id) throws ErrorGeneral {
+	public ResponseEntity<String> editar(@RequestBody Patient patient, @PathVariable Integer id) throws ErrorGeneral {
 		return ResponseEntity.ok(patientService.editar(patient, id));
 	}
 	

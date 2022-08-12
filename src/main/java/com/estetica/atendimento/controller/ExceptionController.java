@@ -15,7 +15,7 @@ public class ExceptionController {
 	@ExceptionHandler(ErrorGeneral.class)
 	public ResponseEntity<?> GeneralException(ErrorGeneral exception) {
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Error", exception.getMessage());
+		headers.add("error", exception.getMessage());
 		return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
 	}
 

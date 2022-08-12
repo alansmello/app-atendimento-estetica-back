@@ -1,7 +1,9 @@
 package com.estetica.atendimento.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,14 +21,21 @@ public class Patient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(unique=true)
 	@NotBlank(message = "Campo nao informado")
 	private String name;
 
+	@Column(unique=true)
 	@NotBlank(message = "Campo nao informado")
 	private String whatsapp;
-
+	
+	@Column(unique=true)
 	@Email(message = "O email deve ser valido")
 	private String email;
+
+	private LocalDate birthday;
+
+
 
 	@JsonIgnore
 	@OneToMany(mappedBy="patient")
@@ -59,6 +68,16 @@ public class Patient {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+
+
+	public LocalDate getBirthday() {
+		return this.birthday;
+	}
+
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
 	}
 
 	public List<Attendance> getAttendances() {

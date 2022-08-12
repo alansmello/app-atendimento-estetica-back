@@ -33,6 +33,9 @@ public class PatientService {
 		if (patient.getEmail() == null || patient.getEmail().equals("")) {
 			throw new ErrorGeneral("O Email do paciente tem que ser informado");
 		}
+		if (patient.getBirthday() == null) {
+			throw new ErrorGeneral("A Data de aniversario nao pode ser nulo");
+		}
 		
 		
 		patient.setName(patient.getName().toUpperCase());

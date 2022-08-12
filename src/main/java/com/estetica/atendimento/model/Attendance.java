@@ -27,15 +27,12 @@ public class Attendance {
 
     @Lob
     private String description;
-    
-    private String url;
 
-    @ManyToOne
+    @ManyToOne()
     private ServiceModel service;
-
-    @JsonIgnore
+    
     @OneToMany(mappedBy="attendance")
-	  private List<Image> photos;
+	 private List<Image> photos;
 
     public Integer getId() {
         return this.id;
@@ -65,6 +62,18 @@ public class Attendance {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+	public ServiceModel getService() {
+		return service;
+	}
+
+
+	public void setService(ServiceModel service) {
+		this.service = service;
+	}
+    
+    
 
     
 }

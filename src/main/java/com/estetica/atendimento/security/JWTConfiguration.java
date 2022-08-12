@@ -46,19 +46,16 @@ public class JWTConfiguration extends WebSecurityConfigurerAdapter {
         .addFilter(new JWTValidationFilter(authenticationManager()))
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
+    
+    
+
 
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
-        /*final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-        CorsConfiguration corsConfiguration = new CorsConfiguration().
-        
-        
-         applyPermitDefaultValues();
-        source.registerCorsConfiguration("/**",corsConfiguration); */
 
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000/","http://169.57.150.59:3020/","http://10.150.122.13:3020/"));
+		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:19006/", "http://localhost:19000/"));
+
 		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corsConfiguration.applyPermitDefaultValues());

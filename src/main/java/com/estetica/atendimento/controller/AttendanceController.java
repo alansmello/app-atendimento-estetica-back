@@ -67,7 +67,7 @@ public class AttendanceController {
 	}
 	
 	@PostMapping("/addFoto")
-	public ResponseEntity<Image> adicionar(@RequestPart Image image, @RequestParam MultipartFile file) throws ErrorGeneral, IOException {
+	public ResponseEntity<String> adicionar(@RequestPart Image image, @RequestParam MultipartFile file) throws ErrorGeneral, IOException {
 		return ResponseEntity.ok(imageService.inserir(image, file));
 	}
 	

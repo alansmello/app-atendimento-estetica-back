@@ -1,5 +1,7 @@
 package com.estetica.atendimento.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "service")
@@ -19,6 +21,7 @@ public class ServiceModel {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy="service")
     private List<Attendance> attendance;
 

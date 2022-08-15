@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,14 @@ public class PatientController {
 	public ResponseEntity<List<Patient>> listarTodos() throws ErrorGeneral {
 		return ResponseEntity.ok(patientService.listarTodos());
 	}
+
+	@GetMapping("/{name}")
+    public ResponseEntity<List<Patient>>getOne(@PathVariable String name) throws ErrorGeneral{
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Paciente", "Paciente retornado com sucesso");
+
+        return new ResponseEntity<>(patientService.findOne(name), headers, HttpStatus.ACCEPTED);
+    }
 	
 	@PostMapping("/addPatient")
 	public ResponseEntity<String> adicionar(@RequestBody @Valid Patient patient) throws ErrorGeneral {

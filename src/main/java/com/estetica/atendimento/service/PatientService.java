@@ -19,6 +19,18 @@ public class PatientService {
 	public List<Patient> listarTodos() {
 		return patientRepo.findAll();
 	}
+	public List<Patient> findOne(String name) throws ErrorGeneral{
+
+
+        List<Patient> optional = patientRepo.findByName(name.toUpperCase());
+        
+
+        if(optional.isEmpty()){
+            throw new ErrorGeneral("Este paciente nao esta cadastrado");
+        }
+        return  optional;
+
+    }
 	
 	public String adicionar(Patient patient) throws ErrorGeneral {
 

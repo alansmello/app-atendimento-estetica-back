@@ -30,6 +30,7 @@ public class ImageService {
 	@Autowired
 	AttendanceRepository attendanceRepo;
 
+	@Transactional
 	public List<Image> listarTodos() {
 		List<Image> lista = imageRepo.findAll();
 		for (Image prod: lista ){
@@ -48,7 +49,7 @@ public class ImageService {
 	}
 	
 	
-	public Image inserir(Image image, MultipartFile file) throws IOException, ErrorGeneral {
+	public String inserir(Image image, MultipartFile file) throws IOException, ErrorGeneral {
 		
 		Optional<Attendance> optional = attendanceRepo.findById(image.getAttendance().getId());
 		if (optional.isEmpty()) {
@@ -60,7 +61,8 @@ public class ImageService {
 		image.setAttendance(optional.get());
 		imageRepo.save(image);
 		adicionarImagemUri(image);
-		return image;
+		return "Imagem criada com sucesso";
+		
 	}
 	
 	private Image adicionarImagemUri(Image image) {

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.estetica.atendimento.exception.ErrorGeneral;
+import com.estetica.atendimento.model.Patient;
 import com.estetica.atendimento.model.ServiceModel;
 import com.estetica.atendimento.repository.ServiceModelRepository;
 
@@ -24,13 +25,17 @@ public class ServiceModelService {
 		return repository.findAll();
 	}
 
-    public ServiceModel getOne( Integer id) throws ErrorGeneral{
-        Optional<ServiceModel> service = repository.findById(id);
-        if(service.isEmpty()){
-            throw new ErrorGeneral("servico nao encontrado");
-        }
+    public List<ServiceModel> findOne(String name) throws ErrorGeneral{
 
-        return service.get();
+
+        List<ServiceModel> optional = repository.findByName(name.toUpperCase());
+        
+
+        if(optional.isEmpty()){
+            throw new ErrorGeneral("Este serviço não esta cadastrado");
+        }
+        return  optional;
+
     }
 
     public String add(ServiceModel service) throws ErrorGeneral {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estetica.atendimento.exception.ErrorGeneral;
+import com.estetica.atendimento.model.Patient;
 import com.estetica.atendimento.model.ServiceModel;
 import com.estetica.atendimento.service.ServiceModelService;
 
@@ -35,12 +36,12 @@ public class ServiceModelController {
         return new ResponseEntity<>(service.getAll(), headers, HttpStatus.valueOf(202));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ServiceModel> getOne(@PathVariable Integer id) throws ErrorGeneral{
+    @GetMapping("/{name}")
+    public ResponseEntity<List<ServiceModel>>getOne(@PathVariable String name) throws ErrorGeneral{
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Servico", "Servico retornado com sucesso");
+        headers.add("Service", "Paciente retornado com sucesso");
 
-        return new ResponseEntity<>(service.getOne(id), headers, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(service.findOne(name), headers, HttpStatus.ACCEPTED);
     }
 
     @PostMapping

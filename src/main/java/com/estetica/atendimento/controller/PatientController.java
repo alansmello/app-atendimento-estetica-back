@@ -29,7 +29,7 @@ public class PatientController {
 	@Autowired
 	PatientService patientService;
 	
-	@GetMapping("/getAllPatient")aaaaa
+	@GetMapping("/getAllPatient")
 	public ResponseEntity<List<Patient>> listarTodos() throws ErrorGeneral {
 		return ResponseEntity.ok(patientService.listarTodos());
 	}
